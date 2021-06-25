@@ -10,6 +10,7 @@ public class SavingThings : MonoBehaviour
 
     public int HighScore;
     public string PlayerName;
+    public string HighPlayerName;
 
     public Text playerText;
 
@@ -29,7 +30,7 @@ public class SavingThings : MonoBehaviour
 
     }
 
-    private void Update()
+    public void Update()
     {
         SetName();
     }
@@ -37,6 +38,7 @@ public class SavingThings : MonoBehaviour
     public void SetName()
     {
         PlayerName = playerText.text;
+
     }
 
 
@@ -44,12 +46,16 @@ public class SavingThings : MonoBehaviour
     class SaveData
     {
         public int HighScore;
+        public string PlayerName;
+        public string HighPlayerName;
     }
 
     public void SaveScore()
     {
         SaveData data = new SaveData();
         data.HighScore = HighScore;
+      //  data.PlayerName = PlayerName;
+        data.HighPlayerName = HighPlayerName;
 
         string json = JsonUtility.ToJson(data);
 
@@ -65,6 +71,8 @@ public class SavingThings : MonoBehaviour
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
             HighScore = data.HighScore;
+            PlayerName = data.PlayerName;
+            HighPlayerName = data.HighPlayerName;
         }
     }
 

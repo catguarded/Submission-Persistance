@@ -11,11 +11,14 @@ public class MainMenuHandler : MonoBehaviour
 {
 
     public Text HighScoreText;
+    public Text BestPlayerText;
 
     // Start is called before the first frame update
     void Start()
     {
+        SavingThings.Instance.LoadScore();
         HighScoreText.text = SavingThings.Instance.HighScore.ToString();
+        BestPlayerText.text = SavingThings.Instance.HighPlayerName;
     }
 
     // Update is called once per frame

@@ -41,7 +41,9 @@ public class MainManager : MonoBehaviour
             }
         }
 
-        PlayerName.text = SavingThings.Instance.PlayerName;
+       // SetHighScore();
+        // PlayerName.text = SavingThings.Instance.PlayerName;
+        PlayerName.text = SavingThings.Instance.HighPlayerName.ToString();
         HighScoreText.text = SavingThings.Instance.HighScore.ToString();
 
     }
@@ -68,11 +70,13 @@ public class MainManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SetHighScore();
                 SavingThings.Instance.SaveScore();
+                
             }
         }
 
-        SetHighScore();
+        
     }
 
     void AddPoint(int point)
@@ -83,22 +87,37 @@ public class MainManager : MonoBehaviour
 
    public void SetHighScore()
     {
-        if(SavingThings.Instance.HighScore < m_Points)
+        if(m_Points > SavingThings.Instance.HighScore)
         {
             SavingThings.Instance.HighScore = m_Points;
-            HighScoreText.text = SavingThings.Instance.HighScore.ToString();
-            
+         //   HighScoreText.text = SavingThings.Instance.HighScore.ToString();
+         //   PlayerName.text = SavingThings.Instance.HighPlayerName;
+            SavingThings.Instance.HighPlayerName = SavingThings.Instance.PlayerName;
+            PlayerName.text = SavingThings.Instance.HighPlayerName.ToString();
 
         }
-     //   else if (SavingThings.Instance.HighScore > m_Points)
-    //    {
-    //        HighScoreText.text = SavingThings.Instance.HighScore.ToString();
-     //   }
+
+    //  else if (SavingThings.Instance.HighScore > m_Points)
+    //   {
+   //         SavingThings.Instance.HighPlayerName = PlayerName.text;
+         //  HighScoreText.text = SavingThings.Instance.HighScore.ToString();
+    //  }
+    }
+
+    public void UpdateHighScore()
+    {
+        HighScoreText.text = SavingThings.Instance.HighScore.ToString();
+        PlayerName.text = SavingThings.Instance.HighPlayerName;
     }
 
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
